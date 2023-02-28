@@ -1,0 +1,11 @@
+[client]
+database = employee_auto_checking
+host = 127.0.0.1
+port = 3306
+user = root
+password = 
+default-character-set = utf8
+
+[store]
+url = http://127.0.0.1:5000
+path = /some/path/to/somewhere

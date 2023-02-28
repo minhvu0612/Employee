@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  api_service:
+    build: ./inteferance
+    command: uvicorn app.run:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./inteferance/:/app/
+    ports:
+      - 8000:8000
+    environment:
+      PORT: 8000
+    restart: always

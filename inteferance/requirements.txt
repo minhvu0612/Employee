@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+tensorflow
+scikit-learn
+opencv-contrib-python-headless==4.5.3.56
+h5py
+matplotlib
+Pillow
+requests
+psutil
+imageio
+openvino
+pandas
