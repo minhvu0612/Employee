@@ -11,6 +11,9 @@ import numpy as np
 from .settings import (
     DATA_FACE_DIR,
 )
+from . import face_anti_spoofing_using_hyperfas
+from . import face_anti_spoofing_using_mobilenet
+
 face_detector = Face_detector()
 face_identifier = Face_identifier()
 df = pd.read_json(DATA_FACE_DIR)
@@ -32,11 +35,19 @@ class Face_recognition:
             ymin, ymax = y[i]
             self.bbox = [[xmin, ymin], [xmax, ymax]]
             self.frame = cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255, 0, 0), 2)
-            self.name_member = self.face_identifier.result_name(imgs[i], self.data_faces, self.members)
-            if self.name_member != "Unknown":
+            # pred, score = face_anti_spoofing_using_hyperfas.detect_face_spoofing(imgs[i])
+            pred, score = face_anti_spoofing_using_mobilenet.detect_face_spoofing(imgs[i])
+            if pred == 0:
+                self.name_member = "Fake" + '_' + str(round(score, 2))
+            else:
+                # self.name_member = "Real" + '_' + str(round(score, 2))
+                self.name_member = self.face_identifier.result_name(imgs[i], self.data_faces, self.members)
+            # self.name_member = self.face_identifier.result_name(imgs[i], self.data_faces, self.members)
+            if self.name_member != "Unknown" and self.name_member != "Fake":
                 self.current_time = datetime.now()
-                break
-        return self.frame, self.bbox, self.name_member, self.current_time
+                return self.frame, self.bbox, self.name_member, self.current_time
+                
+        
 def main(image):
     imgs, x, y = face_detector.detect_face(image)
     if len(imgs) == 0:

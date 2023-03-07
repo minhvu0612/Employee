@@ -2,6 +2,7 @@ import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 from .face_identification import Face_identifier
 from .face_detection import Face_detector
+import shutil
 import pandas as pd
 import numpy as np
 from .settings import (
@@ -27,7 +28,7 @@ class Trainer:
         df = pd.DataFrame({"face": self.data_image, "name": self.members})
         df.to_json(DATA_FACE_DIR)
     
-    def delete_member(name):
-        members = df[df["name"] != name]
+    def delete_member(self, name):
+        members = self.df[self.df["name"] != name]
         members.to_json(DATA_FACE_DIR)
         shutil.rmtree("datasets/face/raw/" + name)

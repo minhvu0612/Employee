@@ -14,3 +14,6 @@ FACE_SIZE = 128
 
 DATA_FACE_DIR = path + "datasets/face/processed/data_face.json"
 DATA_RESULT_DIR = path + "datasets/face/processed/result.json"
+
+MODEL_FACE_ANTI_SPOOFING_HYPERFAS = 'Models/hyperfas.h5'
+MODEL_FACE_ANTI_SPOOFING_MOBILENET = "Models/mobilenet.ckpt"
